@@ -3,13 +3,28 @@ import { preurl, countrylist, urlbuilder } from './urlbuilder.js'
 const urlarray = urlbuilder(preurl,countrylist);
 
 export async function getData() {
-    let response = [];
-    let data = [];
+    let response;
+    let data;
+    let data_object = [];
     for (let i = 0; i < urlarray.length; i++){
-        response[i] = await fetch(urlarray[i]);
-        data[i] = await response[i].json();
+        response = await fetch(urlarray[i]);
+        data = await response.json();
+       
+        if (data.length > 0){
+            for (let j = 0; j < data.length; j++){
+                data_object.push(data[j]);
+            }
+           
+            
+        }
+        
+
+        
+        
         
     }
-    return data;
+    
+    data_object = JSON.stringify(data_object, null, 2);
+    return data_object;
 }
 
